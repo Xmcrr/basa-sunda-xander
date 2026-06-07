@@ -19,6 +19,39 @@ body {
     color: #000;
 }
 
+.main-title {
+    text-align: center;
+    font-size: 2.6rem; /* Ukuran lebih besar dari sub-title (1.8rem) */
+    font-weight: 800;   /* Lebih tebal untuk menegaskan judul utama */
+    color: #111;        /* Warna hitam yang lebih pekat dan tegas */
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px; /* Sedikit merapatkan huruf khas desain modern */
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+/* Dekorasi garis aksen tipis di bawah judul utama */
+.main-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);       /* Lebar garis dekorasi */
+    height: 4px;       /* Tebal garis dekorasi */
+    background-color: #555; /* Warna garis, bisa disesuaikan dengan tema web */
+    border-radius: 2px;
+}
+
+.sub-title {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #222;
+}
+
 /* ============================================
    BACKGROUND GRADIENT
 ============================================ */
@@ -34,32 +67,32 @@ body {
 .blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
+    /* filter: blur(80px); */
     opacity: 0.7;
     will-change: transform;
 }
 
 .b1 {
     width: 600px; height: 600px;
-    background: #ff660050;
+    background: #ff550030;
     top: -100px; left: -100px;
     animation: blobMove1 45s ease-in-out infinite;
 }
 .b2 {
     width: 500px; height: 500px;
-    background: #ff330050;
+    background: #ff330030;
     top: 40%; right: -80px;
     animation: blobMove2 45s ease-in-out infinite;
 }
 .b3 {
     width: 450px; height: 450px;
-    background: #ff008450;
+    background: #ff008430;
     bottom: -80px; left: 30%;
     animation: blobMove3 45s ease-in-out infinite;
 }
 .b4 {
     width: 350px; height: 350px;
-    background: #e100ff50;
+    background: #e100ff30;
     top: 20%; left: 40%;
     animation: blobMove4 45s ease-in-out infinite;
 }
@@ -170,6 +203,12 @@ body {
     filter: url(#cursor-liquid);
 }
 
+#mag-ring.video-hover {
+    mix-blend-mode: normal !important;
+    background: transparent !important;
+    box-shadow: 0 0 0 1.5px #111 !important;
+}
+
 /* #cursor-container.is-merging #mag-dot,
 #cursor-container.is-merging #mag-ring {
     mix-blend-mode: normal;
@@ -211,7 +250,7 @@ nav {
     left: 0;
     right: 0;
     background-color: rgba(255, 255, 255, 0.2);
-    /* backdrop-filter: blur(2px); */
+    backdrop-filter: blur(2px);
     box-shadow: var(--box-shadow-default);
     z-index: 100;
 
@@ -469,9 +508,9 @@ main {
 }
 
 main section {
-    padding: 5rem 0;
-    border-bottom: 1px solid #e0e0e0;
-    scroll-margin-top: 4rem;
+    padding: 2rem 0;
+    /* border-bottom: 1px solid #e0e0e0; */
+    /* scroll-margin-top: 4rem; */
 }
 
 main section:last-child {
@@ -536,23 +575,17 @@ main section img {
 /* ============================================
    MATERIAL CARDS
 ============================================ */
-#wrapper {
-    margin: 1.5rem 0;
+.materials-wrapper {
+    margin: 1.5rem 0 3rem 0; /* Menambah margin bawah agar teks drop-down tidak menabrak materi di bawahnya */
 }
 
-.wrapper-title {
-    font-size: 1rem;
-    font-weight: 700;
-    margin: 0 0 1rem 0;
-    color: #333;
-}
-
-#materials {
+.materials-container {
     display: flex;
     gap: 1rem;
     position: relative;
     align-items: flex-start;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Mengizinkan kartu turun ke baris baru */
+    width: 100%;
 }
 
 .material-card {
@@ -561,25 +594,34 @@ main section img {
     align-items: center;
     gap: 0.5rem;
     padding: 1.25rem 1rem;
-    box-shadow: var(--box-shadow-default);    /*ini buat box-shadow element global */
+    box-shadow: var(--box-shadow-default);
     border: 1px solid transparent;            
     border-image-slice: 1;
     border-radius: 12px;
     background-image: linear-gradient(180deg, #fafafa, #fafafa), linear-gradient(180deg, #ffffff, #e0e0e0);
     background-origin: border-box;
     background-clip: padding-box, border-box;
-    flex: 1;
+    
+    /* Mengatur lebar agar pas maksimal 3 elemen per baris (mengurangi gap 1rem) */
+    flex-basis: calc((100% - (2 * 1rem)) / 3); 
+    flex-shrink: 0;
+    flex-grow: 1;
+    
     cursor: pointer;
     background-color: white;
     position: relative;
     z-index: 1;
     transition: all 0.5s cubic-bezier(.23, 1, .32, 1);
+    box-sizing: border-box;
 }
 
 .material-card:hover {
     box-shadow: var(--box-shadow-hover);
     transform: translateY(-4px);
     z-index: 10;
+    
+    /* Mengubah lengkungan sudut bawah kartu utama saat deskripsi terbuka */
+    border-radius: 12px 12px 0 0; 
 }
 
 .material-desc {
@@ -597,14 +639,24 @@ main section img {
     border-radius: 0 0 12px 12px;
     box-shadow: var(--box-shadow-hover);
     overflow: hidden;
+    
     max-height: 0;
     opacity: 0;
     padding: 0 1rem;
     pointer-events: none;
     transition:
-        max-height 0.55s cubic-bezier(.23, 1, .32, 1),
-        opacity    0.35s cubic-bezier(.23, 1, .32, 1),
-        padding    0.55s cubic-bezier(.23, 1, .32, 1);
+        max-height 0.4s cubic-bezier(.23, 1, .32, 1),
+        opacity    0.3s cubic-bezier(.23, 1, .32, 1),
+        padding    0.4s cubic-bezier(.23, 1, .32, 1);
+    box-sizing: border-box;
+}
+
+/* PERINTAH BARU: Menampilkan deskripsi saat kartu di-hover */
+.material-card:hover .material-desc {
+    max-height: 150px; /* Batas tinggi maksimal ruang teks drop-down */
+    opacity: 1;
+    padding: 1rem; /* Memberikan ruang dalam kembali saat terbuka */
+    pointer-events: auto;
 }
 
 .material-card i {
@@ -618,6 +670,16 @@ main section img {
     color: #333;
 }
 
+/* Responsif untuk tampilan layar HP */
+@media (max-width: 768px) {
+    .material-card {
+        width: 100%; /* Kartu otomatis melebar penuh satu baris jika dibuka di HP */
+    }
+}
+
+/* ============================================
+   UNSUR WARTA - MOTION TRACKING
+============================================ */
 #unsur-warta {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -692,6 +754,423 @@ main section img {
     border-top: none;
     border-radius: 12px;
     box-shadow: var(--box-shadow-hover);
+}
+
+/* ============================================
+   STRUKTUR WARTA — PIRAMIDA TERBALIK
+============================================ */
+.piramida-wrapper {
+    margin: 1.5rem auto 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    user-select: none;
+    position: relative;
+    max-width: 420px;
+    width: 100%;
+}
+
+.pyr-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: default;
+}
+
+.pyr-svg {
+    width: 100%;
+    height: 110px;
+    overflow: visible;
+    display: block;
+}
+
+.pyr-outline {
+    fill: none;
+    stroke: #555;
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    transition: stroke-opacity 0.3s;
+}
+
+.pyr-fill {
+    fill: #B5D4F4;
+    opacity: 0;
+    transition: opacity 0.35s cubic-bezier(.23, 1, .32, 1);
+    stroke: none;
+}
+
+#pyr-2 .pyr-fill { fill: #9FE1CB; }
+#pyr-3 .pyr-fill { fill: #CECBF6; }
+
+.pyr-section:hover .pyr-fill {
+    opacity: 1;
+}
+
+.pyr-section:hover .pyr-outline {
+    stroke-opacity: 0.4;
+}
+
+.pyr-label {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.pyr-header1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: 500;
+}
+.pyr-header2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    font-weight: 500;
+}
+.pyr-header3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -75%);
+    font-size: 12px;
+    font-weight: 500;
+    max-width: 2rem;
+}
+
+/* Menggeser posisi label agar titik penunjuk menusuk lebih dalam ke area dalam piramida */
+.pyr-label-right {
+    right: 0;
+    opacity: 0;
+    transform: translateX(calc(100% - 7px));
+    transition: all 0.8s cubic-bezier(.23, 1, .32, 1);
+}
+
+#pyr-1:hover .pyr-label-right {
+    transform: translateX(calc(100% - 39px));
+    opacity: 1;   
+}
+
+#pyr-label-right-2 {
+    right: 0;
+    opacity: 0;
+    transform: translateX(calc(100% - 147px));
+    transition: all 0.8s cubic-bezier(.23, 1, .32, 1);
+}
+
+#pyr-3:hover #pyr-label-right-2{
+    transform: translateX(calc(100% - 179px));
+    opacity: 1;
+} 
+
+.pyr-label-left {
+    left: 0;
+    opacity: 0;
+    transform: translateX(calc(-100% + 77px));
+    transition: all 0.8s cubic-bezier(.23, 1, .32, 1);
+}
+
+#pyr-2:hover .pyr-label-left {
+    transform: translateX(calc(-100% + 109px));
+    opacity: 1;
+}
+
+.pyr-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #555;
+    flex-shrink: 0;
+    transition: transform 0.2s cubic-bezier(.23, 1, .32, 1);
+}
+
+.pyr-section:hover .pyr-dot {
+    transform: scale(1.5);
+}
+
+/* Garis penunjuk dipanjangkan kembali sesuai permintaan */
+.pyr-line {
+    width: 96px;
+    height: 1px;
+    background: #555;
+    flex-shrink: 0;
+    transition: all 0.75s cubic-bezier(0.23, 1, 0.320, 1)
+}
+
+.pyr-section:hover .pyr-line {
+    /* scale: 1; */
+    width: 60px;
+}
+
+.pyr-text {
+    min-width: 150px;
+    max-width: 180px;
+}
+
+.pyr-text-left {
+    text-align: right;
+}
+
+.pyr-desc {
+    font-size: 1rem;
+    background-color: #fff;
+    color: #333;
+    margin: 0;
+    line-height: 1.5;
+    white-space: normal;
+    padding: 1.25rem 1rem;
+    box-shadow: var(--box-shadow-hover);    /*ini buat box-shadow element global */
+    border: 1px solid transparent;            
+    border-image-slice: 1;
+    border-radius: 12px;
+    background-image: linear-gradient(180deg, #fafafa, #fafafa), linear-gradient(180deg, #ffffff, #e0e0e0);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+
+.pyr-hint {
+    font-size: 0.75rem;
+    color: #666;
+    text-align: center;
+    margin: 0.8rem 0 0 0;
+}
+
+/*============ RAGAM WARTA =============*/
+/* Container Utama Seksi */
+.ragam-warta-section {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Container Kolom (Flexbox) */
+.ragam-warta-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch; /* Memastikan tinggi kolom sama rata */
+    gap: 2rem;
+}
+
+/* Pengaturan Setiap Kolom Materi */
+.materi-kolom {
+    flex: 1; /* Membagi ruang sama rata antara kiri dan kanan */
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 1.25rem 1rem;
+    box-shadow: var(--box-shadow-default);    /*ini buat box-shadow element global */
+    border: 1px solid transparent;            
+    border-image-slice: 1;
+    border-radius: 12px;
+    background-image: linear-gradient(180deg, #fafafa, #fafafa), linear-gradient(180deg, #ffffff, #e0e0e0);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+
+/* Sub Judul Materi */
+.materi-subtitle {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem 0;
+    color: #333;
+}
+
+/* Uraian Penjelasan */
+.materi-uraian {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+}
+
+/* Bagian Contoh */
+.materi-contoh {
+    font-size: 0.85rem;
+    color: #666;
+    background-color: rgba(0, 0, 0, 0.03); /* Kotak tipis untuk area contoh */
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    margin-top: auto; /* Mendorong kotak contoh agar sejajar di bawah */
+}
+
+.materi-contoh span {
+    font-weight: 700;
+    color: #444;
+}
+
+/* Responsif: Jika dibuka di HP, posisi berubah menjadi susunan atas-bawah */
+@media (max-width: 600px) {
+    .ragam-warta-container {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .garis-pembatas {
+        width: 100%;
+        height: 1px; /* Garis berubah vertikal menjadi horizontal di layar kecil */
+    }
+}
+
+/* ============================================
+   ANALISIS WARTA
+============================================ */
+/* Container Utama */
+.analisis-section {
+    /* max-width: 1000px; */
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* 1. Pengaturan Embed Video agar Responsif (Tidak Patah di HP) */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Rasio 16:9 */
+    height: 0;
+    margin-bottom: 2.5rem;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--box-shadow-default);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Layout Grid Utama (Kiri & Kanan) */
+.analisis-grid {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+/* 2. Kolom Kiri: Efek Glassmorphism Tanpa Blur */
+.analisis-info-card {
+    flex: 1;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+    box-sizing: border-box;
+}
+
+.info-block h3 {
+    font-size: 1.6rem;
+    margin: 0.5rem 0 1rem 0;
+    color: #111;
+}
+
+.info-block p {
+    font-size: 0.95rem;
+    color: #444;
+    line-height: 1.6;
+    margin: 0.75rem 0 0 0;
+}
+
+.border-top-glow {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Komponen Badge */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: #222;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 50px;
+    /* letter-spacing: 0.5px; */
+}
+
+/* 3. Kolom Kanan: Unsur 5W+1H (Maksimal 3 Elemen per Baris + Extend) */
+.unsur-container {
+    flex: 1.5; /* Area kanan dibuat sedikit lebih lebar */
+    box-sizing: border-box;
+}
+
+.unsur-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0 0 1.2rem 0;
+    color: #222;
+}
+
+/* Flexbox untuk susunan kartu 5W+1H */
+.unsur-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+}
+
+/* Trik 3 Kolom Maksimal & Mengextend Otomatis di Baris Bawah */
+.unsur-card {
+    background-color: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1.25rem 1rem;
+    box-sizing: border-box;
+    
+    /* Aturan dasar 3 elemen per baris */
+    flex-basis: calc((100% - (2 * 1rem)) / 3);
+    flex-grow: 1; /* Bagian bawah otomatis melebar penuh dari ujung ke ujung */
+    flex-shrink: 0;
+    
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.unsur-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--box-shadow-hover);
+    background-color: #ffffff;
+}
+
+.unsur-label {
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 0.4rem;
+    /* letter-spacing: 0.5px; */
+}
+
+.unsur-isi {
+    font-size: 0.9rem;
+    color: #222;
+    line-height: 1.5;
+}
+
+/* Responsive Breakpoints (Untuk HP dan Tablet) */
+@media (max-width: 850px) {
+    .analisis-grid {
+        flex-direction: column; /* Kolom berubah jadi susunan atas-bawah */
+    }
+    .analisis-info-card, .unsur-container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 550px) {
+    .unsur-card {
+        /* Kartu 5W+1H otomatis berbaris 1 per 1 jika layar terlalu kecil */
+        flex-basis: 100%; 
+    }
 }
 
 /* ============================================

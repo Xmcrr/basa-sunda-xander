@@ -118,12 +118,12 @@
     <main>
         <!-- WARTA -->
         <section id="m1-materi">
-            <h2>Warta</h2>
+            <p class="main-title">Warta</p>
             <h3>Naon eta Warta?</h3>
             <p>Warta nyaéta laporan ngeunaan hiji kajadian anu bener-bener lumangsung (faktual) sarta anyar kénéh kajadianana (aktual). Warta ditepikeun ka balaréa ngaliwatan média citak (koran), média éléktronik (TV/Radio), atawa média digital (internet).</p>
-            <div id="wrapper">
-                <p class="wrapper-title">Kajadian Anu Ngandung Ajén Warta</p>
-                <div id="materials">
+            <div class="materials-wrapper">
+                <p class="sub-title">Kajadian Anu Ngandung Ajén Warta</p>
+                <div class="materials-container">
                     <div class="material-card cursor-hover">
                         <i class="fa-solid fa-newspaper"></i>
                         <p class="material-label"><i>Timelines</i></p>
@@ -141,7 +141,7 @@
                     </div>
                     <div class="material-card cursor-hover">
                         <i class="fa-solid fa-globe"></i>
-                        <p class="material-label"><i>Conflict.</i></p>
+                        <p class="material-label"><i>Conflict</i></p>
                         <p class="material-desc">Aya unsur papaséaan, parébat lambé, atawa konflik.</p>
                     </div>
                     <div class="material-card cursor-hover">
@@ -161,9 +161,10 @@
                     </div>
                 </div>
             </div>
-            <div id="wrapper">
-                <p class="wrapper-title">Ciri-ciri Warta Anu Saé</p>
-                <div id="materials">
+
+            <div class="materials-wrapper">
+                <p class="sub-title">Ciri-ciri Warta Anu Saé</p>
+                <div class="materials-container">
                     <div class="material-card cursor-hover">
                         <i class="fa-solid fa-newspaper"></i>
                         <p class="material-label"><i>Faktual</i></p>
@@ -186,7 +187,7 @@
                     </div>
                 </div>
             </div>
-            <h3>Unsur-unsur Warta</h3>
+            <p class="sub-title">Unsur-unsur Warta</p>
             <div id="unsur-warta">
                 <div id="unsur-left">
                     <ul id="list-unsur">
@@ -230,33 +231,268 @@
                     </ul>
                 </div>
             </div>
-            <h3>Struktur Warta</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </section>
+            <p class="sub-title">Struktur Warta</p>
+            <div class="piramida-wrapper">
+                <div class="pyr-section" id="pyr-1">
+                    <svg class="pyr-svg" viewBox="0 0 480 128" preserveAspectRatio="none">
+                        <polygon class="pyr-fill" points="0,0 480,0 400,128 80,128"/>
+                        <polygon class="pyr-outline" points="0,0 480,0 400,128 80,128"/>
+                    </svg>
+                    <div class="pyr-header1">Judul (Headline)</div>
+                    <div class="pyr-label pyr-label-right">
+                        <div class="pyr-dot"></div>
+                        <div class="pyr-line"></div>
+                        <div class="pyr-text">
+                            <p class="pyr-desc">Kalimah singget nu ngagambarkeun eusi warta.</p>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="pyr-section" id="pyr-2">
+                    <svg class="pyr-svg" viewBox="0 0 480 128" preserveAspectRatio="none">
+                        <polygon class="pyr-fill" points="80,0 400,0 320,128 160,128"/>
+                        <polygon class="pyr-outline" points="80,0 400,0 320,128 160,128"/>
+                    </svg>
+                    <div class="pyr-header2">Teras Warta (Lead)</div>
+                    <div class="pyr-label pyr-label-left">
+                        <div class="pyr-text pyr-text-left">
+                            <p class="pyr-desc">Paragraf munggaran nu jadi inti warta. Lamun urang maca Lead-na hungkul, urang geus nyaho ampir sakabéh eusi warta.</p>
+                        </div>
+                        <div class="pyr-line"></div>
+                        <div class="pyr-dot"></div>
+                    </div>
+                </div>
+
+                <div class="pyr-section" id="pyr-3">
+                    <svg class="pyr-svg" viewBox="0 0 480 128" preserveAspectRatio="none">
+                        <polygon class="pyr-fill" points="160,0 320,0 240,128"/>
+                        <polygon class="pyr-outline" points="160,0 320,0 240,128"/>
+                    </svg>
+                    <div class="pyr-header3">Awak Warta (Body)</div>
+                    <div class="pyr-label pyr-label-right" id="pyr-label-right-2">
+                        <div class="pyr-dot"></div>
+                        <div class="pyr-line"></div>
+                        <div class="pyr-text">
+                            <p class="pyr-desc">Dadaran anu leuwih jéntré ngeunaan kajadian nu diwartakeun.</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="pyr-hint"><i>Hover</i> tiap bagian piramida pikeun tingali katerangan</p>
+            </div>
+
+            <div class="ragam-warta-section">
+                <p class="sub-title">Ragam Warta</p>     
+                <div class="ragam-warta-container">
+                    <div class="materi-kolom">
+                        <h3 class="materi-subtitle">Straight News (Warta Langsung)</h3>
+                        <p class="materi-uraian">
+                            Warta nu pondok, langsung kana inti kajadian, sarta kudu gancang ditepikeun.
+                        </p>
+                        <div class="materi-contoh">
+                            <span>Contona:</span> Berita musibah atawa banjir.
+                        </div>
+                    </div>
+                            
+                    <div class="materi-kolom">
+                        <h3 class="materi-subtitle">Depth News (Warta Mendalam)</h3>
+                        <p class="materi-uraian">
+                            Warta nu leuwih jero, ngabahas sabab-musabab sarta dampak tina hiji kajadian sacara detil.
+                        </p>
+                        <div class="materi-contoh">
+                            <span>Contona:</span> Berita diskusi kawijakan pamaréntah.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+                
         <section id="m1-catatan">
             <h2>Catatan — Warta</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <ul>
-                <li>Lorem ipsum dolor sit amet</li>
-                <li>Consectetur adipiscing elit</li>
-                <li>Sed do eiusmod tempor incididunt</li>
-            </ul>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <img src="catatan-warta">
         </section>
 
         <section id="m1-tugas">
-            <h2>Tugas — Warta</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Kerjakeun pancen ieu kalayan bener!</p>
-            <img src="https://placehold.co/800x450" alt="Soal Tugas Warta">
+            <p class="main-title">Analisis Warta</p>
+            <!-- ==================== WARTA 1 ==================== -->
+            <div class="analisis-section">
+                <p class="sub-title">Warta 1: Tabrakan Truk vs KA Gajayana (Kebumén)</p>
+            
+                <div class="video-container mag">
+                    <iframe src="https://www.youtube.com/embed/ac0EpiEi-To" title="Warta Tabrakan Truk vs KA Gajayana" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            
+                <div class="analisis-grid">
+                    <div class="analisis-info-card">
+                        <div class="info-block">
+                            <span class="badge">Jenis Warta</span>
+                            <h3>Straight News</h3>
+                            <p>Ieu mangrupa warta ngeunaan musibah nu anyar kajadian. Fokusna ngan méré nyaho fakta dasar sacara gancang.</p>
+                        </div>
+                        <div class="info-block border-top-glow">
+                            <span class="badge">Ciri Khas</span>
+                            <p>Durasina singget <strong>(1 menit 33 detik)</strong> sarta ngagunakeun pola piramida tibalik, dimana inti kajadian langsung ditepikeun di awal tanpa aya analisis jero ngeunaan sabab-musababna (alatan masih dina prosés ditalungtik ku pulisi).</p>
+                        </div>
+                    </div>
+                
+                    <div class="unsur-container">
+                        <h3 class="unsur-title">Unsur 5W+1H</h3>
+                        <div class="unsur-grid">
+                            <div class="unsur-card"><div class="unsur-label">Naon</div><div class="unsur-isi">Tabrakan antara truk tronton jeung Kareta Api Gajayana.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Saha</div><div class="unsur-isi">Sopir (maot), kenék, jeung nu ngajaga lintasan (tatu).</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Di mana</div><div class="unsur-isi">Désa Mekarsari, Kutowinangun, Kebumén.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Iraha</div><div class="unsur-isi">Salasa peuting, 27 Januari 2026.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Naha</div><div class="unsur-isi">Truk ngalintas bareng jeung kareta nu keur liwat.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Kumaha</div><div class="unsur-isi">Tabrakan teu bisa di nyingkahan; korban langsung dibawa ka rumah sakit.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== WARTA 2 ==================== -->
+            <div class="analisis-section">
+                <p class="sub-title">Warta 2: Sawala Kedudukan Polri (Forum Satu Meja)</p>
+            
+                <div class="video-container mag">
+                    <iframe src="https://www.youtube.com/embed/TqfZdmK4hyU" title="Warta Sawala Kedudukan Polri" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            
+                <div class="analisis-grid">
+                    <div class="analisis-info-card">
+                        <div class="info-block">
+                            <span class="badge">Jenis Warta</span>
+                            <h3>Depth News</h3>
+                            <p>Ieu lain ngan saukur laporan kajadian, tapi aya diskusi sarta analisis jero ngeunaan hiji kawijakan. Durasi leuwih lila sarta narasumberna loba (ahli).</p>
+                        </div>
+                        <div class="info-block border-top-glow">
+                            <span class="badge">Ciri Khas</span>
+                            <p>Ngalibetkeun loba narasumber <strong>(DPR, akademisi, pengamat)</strong>, durasina leuwih lila <strong>(6 menit leuwih)</strong>, sarta ngaguar kasang tukang (latar belakang) jeung sawangan (perspektif) kawijakan sacara kompréhénsif atawa lengkep pisan.</p>
+                        </div>
+                    </div>
+                
+                    <div class="unsur-container">
+                        <h3 class="unsur-title">Unsur 5W+1H</h3>
+                        <div class="unsur-grid">
+                            <div class="unsur-card"><div class="unsur-label">Naon</div><div class="unsur-isi">Debat ngeunaan posisi Polri di sahandapeun Présidén atawa Kamenterian.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Saha</div><div class="unsur-isi">Pengamat, ahli sajarah, sarta anggota DPR.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Di mana</div><div class="unsur-isi">Studio TV (Kompas TV).</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Iraha</div><div class="unsur-isi">28 Januari 2026.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Naha</div><div class="unsur-isi">Ayana kasalempang ngeunaan independensi Polri tina kapentingan politik.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Kumaha</div><div class="unsur-isi">Ngabahas tina sisi sajarah (era Hoegeng) jeung pengawasan hukum.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== WARTA 3 ==================== -->
+            <div class="analisis-section">
+                <p class="sub-title">Warta 3: Bantuan Longsor Cisarua</p>
+            
+                <div class="video-container mag">
+                    <iframe src="https://www.youtube.com/embed/6_UVKpU9daM" title="Warta Bantuan Longsor Cisarua" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            
+                <div class="analisis-grid">
+                    <div class="analisis-info-card">
+                        <div class="info-block">
+                            <span class="badge">Jenis Warta</span>
+                            <h3>Straight News</h3>
+                            <p>Warta ieu ngalaporkeun hiji fakta kawijakan bantuan ti pamaréntah nu disajikeun sacara singget.</p>
+                        </div>
+                        <div class="info-block border-top-glow">
+                            <span class="badge">Ciri Khas</span>
+                            <p>Ringkes pisan, ngan saukur nepikeun fakta lapangan anu panganyarna supaya gancang dipikanyaho ku masarakat loba.</p>
+                        </div>
+                    </div>
+                
+                    <div class="unsur-container">
+                        <h3 class="unsur-title">Unsur 5W+1H</h3>
+                        <div class="unsur-grid">
+                            <div class="unsur-card"><div class="unsur-label">Naon</div><div class="unsur-isi">Méré bantuan duit Rp10 juta pikeun warga.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Saha</div><div class="unsur-isi">Pemprov Jabar jeung warga korban longsor.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Di mana</div><div class="unsur-isi">Cisarua, Bogor.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Iraha</div><div class="unsur-isi">27 Januari 2026.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Naha</div><div class="unsur-isi">Supaya warga bisa nyéwa kontrakan jeung teu numpuk di pangungsian.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Kumaha</div><div class="unsur-isi">Duit dibikeun pikeun bekel hirup warga salila 2-4 bulan.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== WARTA 4 ==================== -->
+            <div class="analisis-section">
+                <p class="sub-title">Warta 4: Pamariksaan Rocky Gerung (Polda Metro)</p>
+            
+                <div class="video-container mag">
+                    <iframe src="https://www.youtube.com/embed/uAlZmumSsO0" title="Warta Pamariksaan Rocky Gerung" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            
+                <div class="analisis-grid">
+                    <div class="analisis-info-card">
+                        <div class="info-block">
+                            <span class="badge">Jenis Warta</span>
+                            <h3>Straight News</h3>
+                            <p>Sanajan rada panjang, tapi eusina masih mangrupa laporan perkembangan kasus hukum sacara faktual (lain diskusi opini).</p>
+                        </div>
+                        <div class="info-block border-top-glow">
+                            <span class="badge">Ciri Khas</span>
+                            <p>Sanajan formatna Headline News, laporan ieu kaasup detil sabab ngajelaskeun kontéks kasus <strong>(tudingan ijazah palsu)</strong>, saha waé ahli anu geus dipariksa saméméhna, nepi ka status kasangka séjénna <strong>(restorative justice)</strong>.</p>
+                        </div>
+                    </div>
+                
+                    <div class="unsur-container">
+                        <h3 class="unsur-title">Unsur 5W+1H</h3>
+                        <div class="unsur-grid">
+                            <div class="unsur-card"><div class="unsur-label">Naon</div><div class="unsur-isi">Pamariksaan Rocky Gerung salaku saksi ahli nu ngabéla Roy Suryo.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Saha</div><div class="unsur-isi">Rocky Gerung, Roy Suryo, jeung penyidik Polda.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Di mana</div><div class="unsur-isi">Polda Metro Jaya.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Iraha</div><div class="unsur-isi">Salasa, 27 Januari 2026.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Naha</div><div class="unsur-isi">Patali jeung kasus tuduhan ijazah palsu.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Kumaha</div><div class="unsur-isi">Rocky méré katerangan tina sisi akademis pikeun ngabéla kasangka.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== WARTA 5 ==================== -->
+            <div class="analisis-section">
+                <p class="sub-title">Warta 5: Caah di Jatinegara</p>
+            
+                <div class="video-container mag">
+                    <iframe src="https://www.youtube.com/embed/nIj0Yd2XzK8" title="Warta Caah di Jatinegara" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            
+                <div class="analisis-grid">
+                    <div class="analisis-info-card">
+                        <div class="info-block">
+                            <span class="badge">Jenis Warta</span>
+                            <h3>Straight News</h3>
+                            <p>Ieu laporan situasi (spot news) ngeunaan bencana alam anu kajadianana keur lumangsung.</p>
+                        </div>
+                        <div class="info-block border-top-glow">
+                            <span class="badge">Ciri Khas</span>
+                            <p>Ringkes pisan, ngan saukur nepikeun fakta lapangan anu panganyarna supaya gancang dipikanyaho ku masarakat loba.</p>
+                        </div>
+                    </div>
+                
+                    <div class="unsur-container">
+                        <h3 class="unsur-title">Unsur 5W+1H</h3>
+                        <div class="unsur-grid">
+                            <div class="unsur-card"><div class="unsur-label">Naon</div><div class="unsur-isi">Cai caah (banjir) jangkungna 75 cm.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Saha</div><div class="unsur-isi">Warga Kebon Pala, Jatinegara.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Di mana</div><div class="unsur-isi">Jatinegara, Jakarta Timur.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Iraha</div><div class="unsur-isi">Rebo peuting, 28 Januari 2026.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Naha</div><div class="unsur-isi">Luapan Kali Ciliwung alatan kiriman cai ti Bogor.</div></div>
+                            <div class="unsur-card"><div class="unsur-label">Kumaha</div><div class="unsur-isi">Cai naék deui sanggeus poé kamari surut; warga narajang caah.</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="m1-video">
-            <h2>Video — Warta</h2>
-            <p>Tonton video ieu pikeun leuwih ngarti ngeunaan Warta.</p>
+            <p class="main-title">Conto Abdi Ngawarta</p>
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video Warta" frameborder="0" allowfullscreen></iframe>
-            </div>
+            <iframe src="https://www.youtube.com/embed/bhwoPsZSFhw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>            </div>
         </section>
 
         <!-- WAWACAN -->

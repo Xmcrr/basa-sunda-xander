@@ -218,6 +218,54 @@ document.querySelectorAll('main section').forEach(section => {
     }
     tick();
 
+    // ── Video iframe overlay (fix cursor freeze) ── ← TARUH DI SINI
+    document.querySelectorAll('.video-wrapper, .video-container').forEach(wrapper => {
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+        `;
+        wrapper.style.position = 'relative';
+        wrapper.appendChild(overlay);
+
+        wrapper.addEventListener('mouseenter', () => {
+            overlay.style.pointerEvents = 'auto';
+            ring.style.zIndex = '-1';
+            ring.style.opacity = '0';
+            setTimeout(() => {
+                ring.classList.add('video-hover');
+                ring.style.zIndex = '-1';
+                ring.style.opacity = '1';
+            }, 150);
+        });
+
+        overlay.addEventListener('mousemove', e => {
+            mx = e.clientX;
+            my = e.clientY;
+            setDotPos(mx, my);
+        });
+
+        overlay.addEventListener('click', () => {
+            overlay.style.pointerEvents = 'none';
+            setTimeout(() => {
+                overlay.style.pointerEvents = 'auto';
+            }, 1500);
+        });
+
+        wrapper.addEventListener('mouseleave', () => {
+            overlay.style.pointerEvents = 'none';
+            ring.style.zIndex = '99998';
+            ring.style.opacity = '0';
+            setTimeout(() => {
+                ring.classList.remove('video-hover');
+                ring.style.zIndex = '-1';
+                ring.style.opacity = '1';
+            }, 150);
+        });
+    });
+
     // ── Hover non-mag detection ──
     function checkHover() {
         if (isSnapped) return; // kalau lagi snap, skip
