@@ -1,0 +1,11 @@
+<!-- cursor jadi besar pas hover -->
+<p data-cursor="expand">Lorem ipsum...</p>
+
+<!-- cursor dot kecil, ring ngecil pas di atas teks -->
+<h1 data-cursor="text">Basa Sunda</h1>
+
+<!-- cursor ilang pas hover image -->
+<img data-cursor="hidden" src="...">
+
+<!-- bisa juga ke section biar semua isi section kena -->
+<section data-cursor="expand" id="m1-materi">...</section>
