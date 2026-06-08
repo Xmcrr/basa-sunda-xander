@@ -373,3 +373,172 @@ window.addEventListener('scroll', () => {
         }
     });
 });
+
+// ── Carousel Foto Catatan ──
+(function () {
+    const track      = document.querySelector('.carousel-track');
+    const slides     = document.querySelectorAll('.carousel-slide');
+    const prevBtn    = document.getElementById('carouselPrev');
+    const nextBtn    = document.getElementById('carouselNext');
+    const dotsEl     = document.getElementById('carouselDots');
+    const progressEl = document.getElementById('carouselProgress');
+    const wrapper    = document.getElementById('carouselTrack');
+
+    if (!track || slides.length === 0) return;
+
+    const total = slides.length;
+    const DELAY = 4000;
+    let current   = 0;
+    let isPaused  = false;
+    let autoTimer = null;
+    let progStart = null;
+    let progRemaining = DELAY;
+
+    // ── Buat dots ──
+    slides.forEach((_, i) => {
+        const d = document.createElement('div');
+        d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        d.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(d);
+    });
+
+    function updateDots() {
+        dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) => {
+            d.classList.toggle('active', i === current);
+        });
+    }
+
+    function goTo(idx) {
+        current = (idx + total) % total;
+        const wrapper = document.getElementById('carouselTrack');
+        wrapper.scrollTo({
+            left: current * wrapper.offsetWidth,
+            behavior: 'smooth'
+        });
+        updateDots();
+        if (!isPaused) startCycle();
+    }
+
+    // ── Progress bar ──
+    function startProgress(duration) {
+        progressEl.classList.remove('running');
+        progressEl.style.transition = 'none';
+        progressEl.style.setProperty('--prog-w', '0%');
+        void progressEl.offsetWidth;
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                progressEl.style.transition = `width ${duration}ms linear`;
+                progressEl.classList.add('running');
+                progStart = Date.now();
+                progRemaining = duration;
+            });
+        });
+    }
+
+    function pauseProgress() {
+        const elapsed = Date.now() - progStart;
+        progRemaining = Math.max(0, progRemaining - elapsed);
+        progressEl.style.transition = 'none';
+        // freeze progress bar di posisi sekarang
+        const pct = ((DELAY - progRemaining) / DELAY) * 100;
+        progressEl.style.setProperty('--frozen-w', pct + '%');
+        progressEl.classList.remove('running');
+        progressEl.classList.add('paused');
+    }
+
+    function resumeProgress() {
+        progressEl.classList.remove('paused');
+        void progressEl.offsetWidth;
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                progressEl.style.transition = `width ${progRemaining}ms linear`;
+                progressEl.classList.add('running');
+                progStart = Date.now();
+            });
+        });
+    }
+
+    function startCycle(duration = DELAY) {
+        clearTimeout(autoTimer);
+        startProgress(duration);
+        autoTimer = setTimeout(() => {
+            if (!isPaused) goTo(current + 1);
+        }, duration);
+    }
+
+    // ── Pause / Resume ──
+    function pause() {
+        if (isPaused) return;
+        isPaused = true;
+        clearTimeout(autoTimer);
+        pauseProgress();
+    }
+
+    function resume() {
+        if (!isPaused) return;
+        isPaused = false;
+        resumeProgress();
+        autoTimer = setTimeout(() => {
+            goTo(current + 1);
+        }, progRemaining);
+    }
+
+    // hover pause
+    // wrapper.addEventListener('mouseenter', pause);
+    // wrapper.addEventListener('mouseleave', resume);
+
+    // ── Tombol navigasi ──
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+    
+    const pauseBtn   = document.getElementById('carouselPause');
+    const pauseIcon  = document.getElementById('pauseIcon');
+    const playIcon   = document.getElementById('playIcon');
+
+    pauseBtn.addEventListener('click', () => {
+        if (isPaused) {
+            resume();
+            pauseIcon.style.display = '';
+            playIcon.style.display  = 'none';
+        } else {
+            pause();
+            pauseIcon.style.display = 'none';
+            playIcon.style.display  = '';
+        }
+    });
+
+    // ── Swipe / drag ──
+    let startX = 0, isDragging = false;
+
+    wrapper.addEventListener('mousedown', e => {
+        startX = e.clientX;
+        isDragging = true;
+        pause();
+    });
+    window.addEventListener('mouseup', e => {
+        if (!isDragging) return;
+        isDragging = false;
+        const diff = e.clientX - startX;
+        if (Math.abs(diff) > 50) {
+            goTo(diff < 0 ? current + 1 : current - 1);
+        } else {
+            resume();
+        }
+    });
+
+    wrapper.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX;
+        pause();
+    }, { passive: true });
+    wrapper.addEventListener('touchend', e => {
+        const diff = e.changedTouches[0].clientX - startX;
+        if (Math.abs(diff) > 50) {
+            goTo(diff < 0 ? current + 1 : current - 1);
+        } else {
+            resume();
+        }
+    }, { passive: true });
+
+    // ── Mulai ──
+    startCycle();
+})();

@@ -307,8 +307,64 @@
         </section>
                 
         <section id="m1-catatan">
-            <h2>Catatan — Warta</h2>
-            <img src="catatan-warta">
+            <div class="analisis-section">
+                <h1 class="main-title">Foto Catatan Materi Warta</h1>
+            
+                <div class="carousel-wrapper">
+                    <button class="carousel-btn carousel-btn-left mag" id="carouselPrev" aria-label="Sebelumnya">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"/>
+                        </svg>
+                    </button>
+                
+                    <div class="carousel-track-wrapper" id="carouselTrack">
+                        <div class="carousel-track">
+                            <div class="carousel-slide">
+                                <img src="img/warta1.jpg" alt="Catatan Materi Warta Bagian 1" draggable="false">
+                                <div class="carousel-caption">
+                                    <span class="badge">Foto 1</span>
+                                    <p>Catatan Bagian 1</p>
+                                </div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="img/warta2.jpg" alt="Catatan Materi Warta Bagian 2" draggable="false">
+                                <div class="carousel-caption">
+                                    <span class="badge">Foto 2</span>
+                                    <p>Catatan Bagian 2</p>
+                                </div>
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="img/warta3.jpg" alt="Catatan Materi Warta Bagian 3" draggable="false">
+                                <div class="carousel-caption">
+                                    <span class="badge">Foto 3</span>
+                                    <p>Catatan Bagian 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <button class="carousel-btn carousel-btn-right mag" id="carouselNext" aria-label="Selanjutnya">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </button>
+                
+                    <div class="carousel-dots" id="carouselDots"></div>
+                    <div class="carousel-controls">
+                        <div class="carousel-dots" id="carouselDots"></div>
+                            <button class="carousel-pause-btn mag" id="carouselPause" aria-label="Pause">
+                                <svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor">
+                                    <rect x="6" y="4" width="4" height="16" rx="1"/>
+                                    <rect x="14" y="4" width="4" height="16" rx="1"/>
+                                </svg>
+                                <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor" style="display:none">
+                                    <polygon points="5 3 19 12 5 21 5 3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    <div class="carousel-progress" id="carouselProgress"></div>
+                </div>
+            </div>
         </section>
 
         <section id="m1-tugas">
@@ -491,7 +547,7 @@
 
         <section id="m1-video">
             <p class="main-title">Conto Abdi Ngawarta</p>
-            <div class="video-container">
+            <div class="video-container mag">
             <iframe src="https://www.youtube.com/embed/bhwoPsZSFhw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>            </div>
         </section>
 

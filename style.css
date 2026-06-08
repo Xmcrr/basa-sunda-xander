@@ -67,7 +67,7 @@ body {
 .blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
+    /* filter: blur(80px); */
     opacity: 0.7;
     will-change: transform;
 }
@@ -998,6 +998,14 @@ main section img {
     padding: 0.5rem 0.75rem;
     border-radius: 6px;
     margin-top: auto; /* Mendorong kotak contoh agar sejajar di bawah */
+    transition: 
+        box-shadow 0.5s cubic-bezier(0.23, 1, 0.320, 1),
+        transform 0.5s ease;
+}
+
+.materi-contoh:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--box-shadow-hover);
 }
 
 .materi-contoh span {
@@ -1016,6 +1024,198 @@ main section img {
         width: 100%;
         height: 1px; /* Garis berubah vertikal menjadi horizontal di layar kecil */
     }
+}
+
+/* ============================================
+   CAROUSEL FOTO CATATAN
+============================================ */
+.carousel-wrapper {
+    position: relative;
+    width: 100%;
+    margin: 1.5rem 0;
+    user-select: none;
+}
+
+.carousel-track-wrapper {
+    overflow: hidden;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    border-radius: 12px;
+    box-shadow: var(--box-shadow-hover);
+    cursor: grab;
+    width: 100%;
+}
+
+.carousel-track-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-track-wrapper:active {
+    cursor: grabbing;
+}
+
+.carousel-track {
+    display: flex;
+    /* width: 100%; */
+    gap: 0px;
+    transition: transform 0.5s cubic-bezier(.23, 1, .32, 1);
+    will-change: transform;
+}
+
+.carousel-slide {
+    /* min-width: 100%; */
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    scroll-snap-align: start;
+    /* overflow: hidden; */
+    /* flex-shrink: 0; */
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 1000px;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    border-radius: 12px;
+    pointer-events: none;
+    margin: 0;
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem 1.25rem 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%);
+    border-radius: 0 0 12px 12px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.carousel-caption p {
+    margin: 0;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.9);
+    box-shadow: var(--box-shadow-hover);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(.23, 1, .32, 1);
+    backdrop-filter: blur(4px);
+}
+
+.carousel-btn:hover {
+    background: #fff;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn svg {
+    width: 18px;
+    height: 18px;
+    color: #333;
+}
+
+.carousel-btn-left  { left: -16px; }
+.carousel-btn-right { right: -16px; }
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 1rem;
+}
+
+.carousel-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #ccc;
+    transition: all 0.3s cubic-bezier(.23, 1, .32, 1);
+}
+
+.carousel-dot.active {
+    background: #333;
+    width: 20px;
+    border-radius: 4px;
+}
+
+.carousel-progress {
+    height: 2px;
+    background: #eee;
+    border-radius: 2px;
+    margin-top: 0.75rem;
+    overflow: hidden;
+}
+
+.carousel-progress::after {
+    content: '';
+    display: block;
+    height: 100%;
+    background: #333;
+    border-radius: 2px;
+    width: 0%;
+    transition: width linear;
+}
+
+.carousel-progress.running::after {
+    width: 100%;
+    transition: width 4s linear; /* sama dengan DELAY di JS */
+}
+
+.carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.carousel-dots {
+    display: flex;
+    gap: 6px;
+    margin-top: 0; /* reset margin karena sekarang di dalam controls */
+}
+
+.carousel-pause-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s;
+}
+
+.carousel-pause-btn:hover {
+    background: #ddd;
+}
+
+.carousel-pause-btn svg {
+    width: 12px;
+    height: 12px;
+    color: #333;
 }
 
 /* ============================================
