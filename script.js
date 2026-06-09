@@ -1,3 +1,90 @@
+// Memaksa browser untuk tidak menyimpan posisi scroll terakhir saat reload
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+}
+
+// Memastikan layar benar-benar kembali ke koordinat paling atas (0,0) saat halaman dimuat
+window.addEventListener('beforeunload', () => {
+    window.scrollTo(0, 0);
+});
+
+// ── Animasi entrance dengan Jeda Delay di Awal (Timeline Tunggal) ──
+anime.timeline({ easing: 'easeOutExpo' })
+    .add({ 
+        targets: 'nav',           
+        marginTop: [-20, 0], 
+        opacity: [0, 1], 
+        duration: 800,
+        delay: 9080 // Jeda tertahan selama 5 detik awal
+    })
+    .add({ targets: 'header h1',     marginTop: [30, 0],  opacity: [0, 1], duration: 800 }, '-=600')
+    .add({ targets: 'header p',      marginTop: [30, 0],  opacity: [0, 1], duration: 800 }, '-=600')
+    .add({ targets: 'header button', marginTop: [30, 0],  opacity: [0, 1], duration: 800 }, '-=600');
+
+const bar       = document.getElementById('progress-bar');
+const pctEl     = document.getElementById('percent-text');
+const txtEl     = document.getElementById('loading-text');
+const s1        = document.getElementById('screen1');
+const s2        = document.getElementById('screen2');
+const loader    = document.getElementById('loader');
+const main      = document.getElementById('main-content');
+ 
+const phrases = ['Ngamuat', 'Nyiapkeun', 'Hampir Réngsé'];
+ 
+function ease(t) {
+    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+}
+ 
+function fadeIn(el, cb) {
+    el.classList.add('visible');
+    if (cb) setTimeout(cb, 820);
+}
+ 
+function fadeOut(el, cb) {
+    el.classList.remove('visible');
+    if (cb) setTimeout(cb, 820);
+}
+ 
+// Screen 1: progress bar
+let startTime = null;
+const PROGRESS_DURATION = 3000; // ms
+ 
+function animateProgress(ts) {
+    if (!startTime) startTime = ts;
+    const raw = Math.min((ts - startTime) / PROGRESS_DURATION, 1);
+    const val = Math.round(ease(raw) * 100);
+ 
+    bar.style.width = val + '%';
+    pctEl.textContent = val + '%';
+    txtEl.textContent = val < 40 ? phrases[0] : val < 85 ? phrases[1] : phrases[2];
+ 
+    if (raw < 1) {
+        requestAnimationFrame(animateProgress);
+    } else {
+        // Done — fade out screen 1, fade in screen 2
+        setTimeout(() => {
+            fadeOut(s1, () => {
+                fadeIn(s2, () => {
+                    // Screen 2 shown for 2.4s then fade out entire loader
+                    setTimeout(() => {
+                        fadeOut(s2, () => {
+                            loader.classList.add('fade-out');
+                            setTimeout(() => {
+                                loader.style.display = 'none';
+                                main.style.display = 'block';
+                            }, 820);
+                        });
+                    }, 2400);
+                });
+            });
+        }, 400);
+    }
+}
+ 
+// Kick off
+fadeIn(s1, null);
+requestAnimationFrame(animateProgress);
+
 // ── Smooth scroll ──
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -6,12 +93,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if (target) target.scrollIntoView({ behavior: 'smooth' });
     });
 });
-// ── Animasi entrance (marginTop bukan translateY supaya mix-blend-mode tetap jalan) ──
-anime.timeline({ easing: 'easeOutExpo' })
-    .add({ targets: 'nav',           marginTop: [-20, 0], opacity: [0, 1], duration: 800 })
-    .add({ targets: 'header h1',     marginTop: [30, 0],  opacity: [0, 1], duration: 800 }, '-=600')
-    .add({ targets: 'header p',      marginTop: [30, 0],  opacity: [0, 1], duration: 800 }, '-=600')
-    .add({ targets: 'header button', marginTop: [30, 0],  opacity: [0, 1], duration: 800 }, '-=600');
+
+// NOTE: TIMELINE DUPLIKAT YANG MEMICU STUTTERING DI SINI SUDAH DIHAPUS
+
 // ── Material cards hover effect ──
 document.querySelectorAll('.material-card').forEach(card => {
     let timeout;
@@ -59,15 +143,11 @@ document.querySelectorAll('main section').forEach(section => {
 (function () {
     const dot  = document.getElementById('mag-dot');
     const ring = document.getElementById('mag-ring');
-    // posisi mouse & ring (pakai offset langsung, bukan transform)
     let mx = -200, my = -200;
     let rx = -200, ry = -200;
     let isSnapped = false;
     let activeEl  = null;
     const thresholdPx = 14;
-    // update posisi dot & ring pakai offset langsung
-    // CSS sudah set transform: translate(-50%,-50%) sekali,
-    // tapi kita override left/top supaya center pas di cursor
     function setDotPos(x, y) {
         dot.style.left = x + 'px';
         dot.style.top  = y + 'px';
@@ -115,7 +195,7 @@ document.querySelectorAll('main section').forEach(section => {
             }
         document.querySelectorAll('.mag-sm').forEach(el => {
             const r   = el.getBoundingClientRect();
-            const pad = 2; // ← threshold kecil buat dropdown
+            const pad = 2; 
             const parentDropdown = el.closest('.dropdown');
             if (parentDropdown && !parentDropdown.matches(':hover')) return;
             if (
@@ -146,7 +226,6 @@ document.querySelectorAll('main section').forEach(section => {
         ring.classList.add('is-snapped');
         dot.classList.add('is-snapped');
 
-        // reset efek hover yg data-cursor
         dot.style.opacity       = '1';
         dot.style.zIndex        = '99999';
         dot.style.background    = '#fff';
@@ -158,14 +237,12 @@ document.querySelectorAll('main section').forEach(section => {
 
         if (activeEl !== el) {
             if (activeEl) activeEl.style.pointerEvents = '';
-            // el.style.pointerEvents = 'none';
             activeEl = el;
         }
         isSnapped = true;
     }
     function releaseSnap() {
         if (activeEl) {
-            // activeEl.style.pointerEvents = '';
             activeEl = null;
         }
         ring.style.width        = 'var(--ring-size)';
@@ -175,7 +252,6 @@ document.querySelectorAll('main section').forEach(section => {
         dot.classList.remove('is-snapped');
         isSnapped = false;
     }
-    // ── Click animation ──
     document.addEventListener('mousedown', () => {
         dot.style.transform = 'translate(-50%, -50%) scale(0.5)';
         if (isSnapped && activeEl) {
@@ -205,7 +281,6 @@ document.querySelectorAll('main section').forEach(section => {
             ry = lerp(ry, my, 0.13);
             setRingPos(rx, ry);
         }
-        // merge detection
         const dx   = mx - rx;
         const dy   = my - ry;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -218,7 +293,6 @@ document.querySelectorAll('main section').forEach(section => {
     }
     tick();
 
-    // ── Video iframe overlay (fix cursor freeze) ── ← TARUH DI SINI
     document.querySelectorAll('.video-wrapper, .video-container').forEach(wrapper => {
         const overlay = document.createElement('div');
         overlay.style.cssText = `
@@ -266,9 +340,8 @@ document.querySelectorAll('main section').forEach(section => {
         });
     });
 
-    // ── Hover non-mag detection ──
     function checkHover() {
-        if (isSnapped) return; // kalau lagi snap, skip
+        if (isSnapped) return; 
     
         const el = document.elementFromPoint(mx, my);
         const isHoverable = el && el.closest('[data-cursor]');
@@ -282,7 +355,6 @@ document.querySelectorAll('main section').forEach(section => {
     }
     function applyHover(mode) {
         const presets = {
-            // format: { ringSize, blendMode, dotZ, ringZ, dotOpacity }
             'expand': {
                 ringW: '6rem', ringH: '6rem',
                 blendMode: 'difference',
@@ -324,25 +396,23 @@ document.querySelectorAll('main section').forEach(section => {
         dot.style.background    = '#fff';
     }
 })();
+
 // ── Unsur warta scroll dot ──
 const unsurDot  = document.getElementById('unsur-dot');
 const unsurLine = document.getElementById('unsur-center');
 
-// sembunyiin semua list item dulu
 const leftItems  = document.querySelectorAll('#unsur-left  .list-container-unsur');
 const rightItems = document.querySelectorAll('#unsur-right .list-container-unsur');
 
-// total ada 6 item (3 kiri, 3 kanan), tiap item muncul di progress tertentu
 const allItems = [
-    { el: rightItems[0], threshold: 0.05 },  // What   — paling atas kanan
-    { el: leftItems[0],  threshold: 0.20 },  // Who    — kiri kedua
-    { el: rightItems[1], threshold: 0.38 },  // When   — kanan kedua
-    { el: leftItems[1],  threshold: 0.55 },  // Where  — kiri keempat
-    { el: rightItems[2], threshold: 0.72 },  // Why    — kanan ketiga
-    { el: leftItems[2],  threshold: 0.88 },  // How    — kiri keenam
+    { el: rightItems[0], threshold: 0.05 },  
+    { el: leftItems[0],  threshold: 0.20 },  
+    { el: rightItems[1], threshold: 0.38 },  
+    { el: leftItems[1],  threshold: 0.55 },  
+    { el: rightItems[2], threshold: 0.72 },  
+    { el: leftItems[2],  threshold: 0.88 },  
 ];
 
-// style awal: semua tersembunyi
 allItems.forEach(({ el }) => {
     if (!el) return;
     el.style.opacity   = '0';
@@ -394,7 +464,6 @@ window.addEventListener('scroll', () => {
     let progStart = null;
     let progRemaining = DELAY;
 
-    // ── Buat dots ──
     slides.forEach((_, i) => {
         const d = document.createElement('div');
         d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
@@ -419,7 +488,6 @@ window.addEventListener('scroll', () => {
         if (!isPaused) startCycle();
     }
 
-    // ── Progress bar ──
     function startProgress(duration) {
         progressEl.classList.remove('running');
         progressEl.style.transition = 'none';
@@ -439,7 +507,6 @@ window.addEventListener('scroll', () => {
         const elapsed = Date.now() - progStart;
         progRemaining = Math.max(0, progRemaining - elapsed);
         progressEl.style.transition = 'none';
-        // freeze progress bar di posisi sekarang
         const pct = ((DELAY - progRemaining) / DELAY) * 100;
         progressEl.style.setProperty('--frozen-w', pct + '%');
         progressEl.classList.remove('running');
@@ -466,7 +533,6 @@ window.addEventListener('scroll', () => {
         }, duration);
     }
 
-    // ── Pause / Resume ──
     function pause() {
         if (isPaused) return;
         isPaused = true;
@@ -483,11 +549,6 @@ window.addEventListener('scroll', () => {
         }, progRemaining);
     }
 
-    // hover pause
-    // wrapper.addEventListener('mouseenter', pause);
-    // wrapper.addEventListener('mouseleave', resume);
-
-    // ── Tombol navigasi ──
     prevBtn.addEventListener('click', () => goTo(current - 1));
     nextBtn.addEventListener('click', () => goTo(current + 1));
     
@@ -507,7 +568,6 @@ window.addEventListener('scroll', () => {
         }
     });
 
-    // ── Swipe / drag ──
     let startX = 0, isDragging = false;
 
     wrapper.addEventListener('mousedown', e => {
@@ -539,7 +599,6 @@ window.addEventListener('scroll', () => {
         }
     }, { passive: true });
 
-    // ── Mulai ──
     startCycle();
 })();
 
@@ -563,7 +622,6 @@ window.addEventListener('scroll', () => {
     let progStart     = null;
     let progRemaining = DELAY;
 
-    // Buat dots
     slides.forEach((_, i) => {
         const d = document.createElement('div');
         d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
@@ -662,7 +720,6 @@ window.addEventListener('scroll', () => {
         }
     });
 
-    // Swipe / drag
     let startX = 0, isDragging = false;
 
     wrapper.addEventListener('mousedown', e => { startX = e.clientX; isDragging = true; pause(); });
@@ -703,7 +760,6 @@ window.addEventListener('scroll', () => {
     let progStart     = null;
     let progRemaining = DELAY;
 
-    // Buat dots
     slides.forEach((_, i) => {
         const d = document.createElement('div');
         d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
@@ -802,7 +858,6 @@ window.addEventListener('scroll', () => {
         }
     });
 
-    // Swipe / drag
     let startX = 0, isDragging = false;
 
     wrapper.addEventListener('mousedown', e => { startX = e.clientX; isDragging = true; pause(); });

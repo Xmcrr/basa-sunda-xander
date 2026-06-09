@@ -56,6 +56,148 @@ body {
 }
 
 /* ============================================
+   LOADING SCREEN
+============================================ */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+ #loader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+ .screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+ .screen.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+ .inner {
+  text-align: center;
+  width: 320px;
+}
+ /* Brand */
+.brand {
+  margin-bottom: 52px;
+}
+ .brand-name {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  /* letter-spacing: 0.1em; */
+  color: #000;
+}
+ .tagline {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 11px;
+  color: #b8b8b8;
+  /* letter-spacing: 0.16em; */
+  /* text-transform: uppercase; */
+  margin-top: 10px;
+  line-height: 1.5;
+}
+ /* Progress */
+.progress-wrap {
+  margin-bottom: 16px;
+}
+ .progress-track {
+  height: 1px;
+  background: #ebebeb;
+  border-radius: 1px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+ .progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff550055, #ff5500, #ff7733);
+  border-radius: 1px;
+  transition: none;
+}
+ .progress-labels {
+  display: flex;
+  justify-content: space-between;
+}
+ .progress-labels span {
+  font-family: 'Lato', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: #c4c4c4;
+}
+ .progress-labels .pct { color: #ff5500; }
+ /* Dots */
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 32px;
+}
+ .dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: #ff5500;
+  opacity: 0.25;
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+ .dot:nth-child(1) { animation-delay: 0s; }
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+ @keyframes dotPulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.4); }
+}
+ /* Info screen */
+.info-icon {
+  width: 40px; height: 40px;
+  border: 1px solid #ff550030;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 22px;
+}
+ .info-label {
+  font-family: 'Lato', sans-serif;
+  font-size: 10px;
+  color: #c4c4c4;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+ .info-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 23px;
+  font-weight: 400;
+  color: #1a1a1a;
+  line-height: 1.75;
+  letter-spacing: 0.02em;
+}
+ .info-text em {
+  font-style: italic;
+  color: #ff5500;
+}
+ .divider {
+  width: 28px; height: 1px;
+  background: #ff550040;
+  margin: 22px auto 0;
+}
+ /* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .dot { animation: none; opacity: 0.4; }
+  .screen, #loader { transition: none; }
+}
+
+/* ============================================
    BACKGROUND GRADIENT
 ============================================ */
 #bg-gradient {
