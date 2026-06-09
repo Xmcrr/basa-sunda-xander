@@ -9,3 +9,175 @@
 
 <!-- bisa juga ke section biar semua isi section kena -->
 <section data-cursor="expand" id="m1-materi">...</section>
+
+
+<div class="piramida-wrapper">
+                <div class="pyr-section" id="pyr-1">
+                    <svg class="pyr-svg" viewBox="0 0 480 128" preserveAspectRatio="none">
+                        <polygon class="pyr-fill" points="0,0 480,0 420,128 60,128"/>
+                        <polygon class="pyr-outline" points="0,0 480,0 420,128 60,128"/>
+                    </svg>
+                    <div class="pyr-label pyr-label-right">
+                        <div class="pyr-dot"></div>
+                        <div class="pyr-line"></div>
+                        <div class="pyr-text">
+                            <p class="pyr-title">Judul (Headline)</p>
+                            <p class="pyr-desc">Kalimah singget nu ngagambarkeun eusi warta.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pyr-section" id="pyr-2">
+                    <svg class="pyr-svg" viewBox="0 0 480 128" preserveAspectRatio="none">
+                        <polygon class="pyr-fill" points="60,0 420,0 360,128 120,128"/>
+                        <polygon class="pyr-outline" points="60,0 420,0 360,128 120,128"/>
+                    </svg>
+                    <div class="pyr-label pyr-label-left">
+                        <div class="pyr-text pyr-text-left">
+                            <p class="pyr-title">Teras Warta (Lead)</p>
+                            <p class="pyr-desc">Paragraf munggaran nu jadi inti warta. Lamun urang maca Lead-na hungkul, urang geus nyaho ampir sakabéh eusi warta.</p>
+                        </div>
+                        <div class="pyr-line"></div>
+                        <div class="pyr-dot"></div>
+                    </div>
+                </div>
+                <div class="pyr-section" id="pyr-3">
+                    <svg class="pyr-svg" viewBox="0 0 480 128" preserveAspectRatio="none">
+                        <polygon class="pyr-fill" points="120,0 360,0 240,128 240,128"/>
+                        <polygon class="pyr-outline" points="120,0 360,0 240,128 240,128"/>
+                    </svg>
+                    <div class="pyr-label pyr-label-right">
+                        <div class="pyr-dot"></div>
+                        <div class="pyr-line"></div>
+                        <div class="pyr-text">
+                            <p class="pyr-title">Awak Warta (Body)</p>
+                            <p class="pyr-desc">Dadaran anu leuwih jéntré ngeunaan kajadian nu diwartakeun.</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="pyr-hint">Hover tiap bagian piramida pikeun tingali katerangan</p>
+            </div>
+
+
+
+
+            /* ============================================
+   STRUKTUR WARTA — PIRAMIDA TERBALIK
+============================================ */
+.piramida-wrapper {
+    margin: 1.5rem 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    user-select: none;
+    position: relative;
+}
+
+.pyr-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: default;
+}
+
+.pyr-svg {
+    width: 100%;
+    height: 120px;
+    overflow: visible;
+    display: block;
+}
+
+.pyr-outline {
+    fill: none;
+    stroke: #555;
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    transition: stroke-opacity 0.3s;
+}
+
+.pyr-fill {
+    fill: #B5D4F4;
+    opacity: 0;
+    transition: opacity 0.35s cubic-bezier(.23, 1, .32, 1);
+    stroke: none;
+}
+
+#pyr-2 .pyr-fill { fill: #9FE1CB; }
+#pyr-3 .pyr-fill { fill: #CECBF6; }
+
+.pyr-section:hover .pyr-fill {
+    opacity: 1;
+}
+
+.pyr-section:hover .pyr-outline {
+    stroke-opacity: 0.4;
+}
+
+.pyr-label {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.pyr-label-right {
+    right: 0;
+    transform: translateX(calc(100% + 8px));
+}
+
+.pyr-label-left {
+    left: 0;
+    transform: translateX(calc(-100% - 8px));
+}
+
+.pyr-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #555;
+    flex-shrink: 0;
+    transition: transform 0.2s cubic-bezier(.23, 1, .32, 1);
+}
+
+.pyr-section:hover .pyr-dot {
+    transform: scale(1.5);
+}
+
+.pyr-line {
+    width: 36px;
+    height: 1px;
+    background: #555;
+    flex-shrink: 0;
+}
+
+.pyr-text {
+    min-width: 160px;
+    max-width: 190px;
+}
+
+.pyr-text-left {
+    text-align: right;
+}
+
+.pyr-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin: 0 0 2px 0;
+    color: #222;
+}
+
+.pyr-desc {
+    font-size: 0.75rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+    white-space: normal;
+}
+
+.pyr-hint {
+    font-size: 0.75rem;
+    color: #bbb;
+    text-align: center;
+    margin: 0.5rem 0 0 0;
+}

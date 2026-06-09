@@ -374,7 +374,7 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// ── Carousel Foto Catatan ──
+// ── Carousel Foto Catatan Warta ──
 (function () {
     const track      = document.querySelector('.carousel-track');
     const slides     = document.querySelectorAll('.carousel-slide');
@@ -387,7 +387,7 @@ window.addEventListener('scroll', () => {
     if (!track || slides.length === 0) return;
 
     const total = slides.length;
-    const DELAY = 4000;
+    const DELAY = 5000;
     let current   = 0;
     let isPaused  = false;
     let autoTimer = null;
@@ -540,5 +540,285 @@ window.addEventListener('scroll', () => {
     }, { passive: true });
 
     // ── Mulai ──
+    startCycle();
+})();
+
+// ── Carousel Foto Catatan WAWACAN ──
+(function () {
+    const track      = document.querySelector('#carouselTrack2 .carousel-track');
+    const slides     = document.querySelectorAll('#carouselTrack2 .carousel-slide');
+    const prevBtn    = document.getElementById('carouselPrev2');
+    const nextBtn    = document.getElementById('carouselNext2');
+    const dotsEl     = document.getElementById('carouselDots2');
+    const progressEl = document.getElementById('carouselProgress2');
+    const wrapper    = document.getElementById('carouselTrack2');
+
+    if (!track || slides.length === 0) return;
+
+    const total = slides.length;
+    const DELAY = 5000;
+    let current       = 0;
+    let isPaused      = false;
+    let autoTimer     = null;
+    let progStart     = null;
+    let progRemaining = DELAY;
+
+    // Buat dots
+    slides.forEach((_, i) => {
+        const d = document.createElement('div');
+        d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        d.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(d);
+    });
+
+    function updateDots() {
+        dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) => {
+            d.classList.toggle('active', i === current);
+        });
+    }
+
+    function goTo(idx) {
+        current = (idx + total) % total;
+        wrapper.scrollTo({ left: current * wrapper.offsetWidth, behavior: 'smooth' });
+        updateDots();
+        if (!isPaused) startCycle();
+    }
+
+    function startProgress(duration) {
+        progressEl.classList.remove('running');
+        progressEl.style.transition = 'none';
+        progressEl.style.setProperty('--prog-w', '0%');
+        void progressEl.offsetWidth;
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                progressEl.style.transition = `width ${duration}ms linear`;
+                progressEl.classList.add('running');
+                progStart     = Date.now();
+                progRemaining = duration;
+            });
+        });
+    }
+
+    function pauseProgress() {
+        const elapsed = Date.now() - progStart;
+        progRemaining = Math.max(0, progRemaining - elapsed);
+        progressEl.style.transition = 'none';
+        const pct = ((DELAY - progRemaining) / DELAY) * 100;
+        progressEl.style.setProperty('--frozen-w', pct + '%');
+        progressEl.classList.remove('running');
+        progressEl.classList.add('paused');
+    }
+
+    function resumeProgress() {
+        progressEl.classList.remove('paused');
+        void progressEl.offsetWidth;
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                progressEl.style.transition = `width ${progRemaining}ms linear`;
+                progressEl.classList.add('running');
+                progStart = Date.now();
+            });
+        });
+    }
+
+    function startCycle(duration = DELAY) {
+        clearTimeout(autoTimer);
+        startProgress(duration);
+        autoTimer = setTimeout(() => {
+            if (!isPaused) goTo(current + 1);
+        }, duration);
+    }
+
+    function pause() {
+        if (isPaused) return;
+        isPaused = true;
+        clearTimeout(autoTimer);
+        pauseProgress();
+    }
+
+    function resume() {
+        if (!isPaused) return;
+        isPaused = false;
+        resumeProgress();
+        autoTimer = setTimeout(() => { goTo(current + 1); }, progRemaining);
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    const pauseBtn  = document.getElementById('carouselPause2');
+    const pauseIcon = document.getElementById('pauseIcon2');
+    const playIcon  = document.getElementById('playIcon2');
+
+    pauseBtn.addEventListener('click', () => {
+        if (isPaused) {
+            resume();
+            pauseIcon.style.display = '';
+            playIcon.style.display  = 'none';
+        } else {
+            pause();
+            pauseIcon.style.display = 'none';
+            playIcon.style.display  = '';
+        }
+    });
+
+    // Swipe / drag
+    let startX = 0, isDragging = false;
+
+    wrapper.addEventListener('mousedown', e => { startX = e.clientX; isDragging = true; pause(); });
+    window.addEventListener('mouseup', e => {
+        if (!isDragging) return;
+        isDragging = false;
+        const diff = e.clientX - startX;
+        if (Math.abs(diff) > 50) goTo(diff < 0 ? current + 1 : current - 1);
+        else resume();
+    });
+    wrapper.addEventListener('touchstart', e => { startX = e.touches[0].clientX; pause(); }, { passive: true });
+    wrapper.addEventListener('touchend', e => {
+        const diff = e.changedTouches[0].clientX - startX;
+        if (Math.abs(diff) > 50) goTo(diff < 0 ? current + 1 : current - 1);
+        else resume();
+    }, { passive: true });
+
+    startCycle();
+})();
+
+// ── Carousel Foto Catatan SISINDIRAN ──
+(function () {
+    const track      = document.querySelector('#carouselTrack3 .carousel-track');
+    const slides     = document.querySelectorAll('#carouselTrack3 .carousel-slide');
+    const prevBtn    = document.getElementById('carouselPrev3');
+    const nextBtn    = document.getElementById('carouselNext3');
+    const dotsEl     = document.getElementById('carouselDots3');
+    const progressEl = document.getElementById('carouselProgress3');
+    const wrapper    = document.getElementById('carouselTrack3');
+
+    if (!track || slides.length === 0) return;
+
+    const total = slides.length;
+    const DELAY = 5000;
+    let current       = 0;
+    let isPaused      = false;
+    let autoTimer     = null;
+    let progStart     = null;
+    let progRemaining = DELAY;
+
+    // Buat dots
+    slides.forEach((_, i) => {
+        const d = document.createElement('div');
+        d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        d.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(d);
+    });
+
+    function updateDots() {
+        dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) => {
+            d.classList.toggle('active', i === current);
+        });
+    }
+
+    function goTo(idx) {
+        current = (idx + total) % total;
+        wrapper.scrollTo({ left: current * wrapper.offsetWidth, behavior: 'smooth' });
+        updateDots();
+        if (!isPaused) startCycle();
+    }
+
+    function startProgress(duration) {
+        progressEl.classList.remove('running');
+        progressEl.style.transition = 'none';
+        progressEl.style.setProperty('--prog-w', '0%');
+        void progressEl.offsetWidth;
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                progressEl.style.transition = `width ${duration}ms linear`;
+                progressEl.classList.add('running');
+                progStart     = Date.now();
+                progRemaining = duration;
+            });
+        });
+    }
+
+    function pauseProgress() {
+        const elapsed = Date.now() - progStart;
+        progRemaining = Math.max(0, progRemaining - elapsed);
+        progressEl.style.transition = 'none';
+        const pct = ((DELAY - progRemaining) / DELAY) * 100;
+        progressEl.style.setProperty('--frozen-w', pct + '%');
+        progressEl.classList.remove('running');
+        progressEl.classList.add('paused');
+    }
+
+    function resumeProgress() {
+        progressEl.classList.remove('paused');
+        void progressEl.offsetWidth;
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                progressEl.style.transition = `width ${progRemaining}ms linear`;
+                progressEl.classList.add('running');
+                progStart = Date.now();
+            });
+        });
+    }
+
+    function startCycle(duration = DELAY) {
+        clearTimeout(autoTimer);
+        startProgress(duration);
+        autoTimer = setTimeout(() => {
+            if (!isPaused) goTo(current + 1);
+        }, duration);
+    }
+
+    function pause() {
+        if (isPaused) return;
+        isPaused = true;
+        clearTimeout(autoTimer);
+        pauseProgress();
+    }
+
+    function resume() {
+        if (!isPaused) return;
+        isPaused = false;
+        resumeProgress();
+        autoTimer = setTimeout(() => { goTo(current + 1); }, progRemaining);
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    const pauseBtn  = document.getElementById('carouselPause3');
+    const pauseIcon = document.getElementById('pauseIcon3');
+    const playIcon  = document.getElementById('playIcon3');
+
+    pauseBtn.addEventListener('click', () => {
+        if (isPaused) {
+            resume();
+            pauseIcon.style.display = '';
+            playIcon.style.display  = 'none';
+        } else {
+            pause();
+            pauseIcon.style.display = 'none';
+            playIcon.style.display  = '';
+        }
+    });
+
+    // Swipe / drag
+    let startX = 0, isDragging = false;
+
+    wrapper.addEventListener('mousedown', e => { startX = e.clientX; isDragging = true; pause(); });
+    window.addEventListener('mouseup', e => {
+        if (!isDragging) return;
+        isDragging = false;
+        const diff = e.clientX - startX;
+        if (Math.abs(diff) > 50) goTo(diff < 0 ? current + 1 : current - 1);
+        else resume();
+    });
+    wrapper.addEventListener('touchstart', e => { startX = e.touches[0].clientX; pause(); }, { passive: true });
+    wrapper.addEventListener('touchend', e => {
+        const diff = e.changedTouches[0].clientX - startX;
+        if (Math.abs(diff) > 50) goTo(diff < 0 ? current + 1 : current - 1);
+        else resume();
+    }, { passive: true });
+
     startCycle();
 })();
