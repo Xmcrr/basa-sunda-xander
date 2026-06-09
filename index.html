@@ -288,24 +288,52 @@
                 </div>
             </div>
             <p class="sub-title">Struktur Warta</p>
-            <div class="materials-wrapper">
-                <div class="materials-container">
-                    <div class="material-card cursor-hover">
-                        <i class="fa-solid fa-heading"></i>
-                        <p class="material-label">Judul <i>(Headline)</i></p>
-                        <p class="material-desc">Kalimah singget nu ngagambarkeun eusi warta sacara gembleng. Judul kedah narik perhatian nu maca.</p>
-                    </div>
-                    <div class="material-card cursor-hover">
-                        <i class="fa-solid fa-star"></i>
-                        <p class="material-label">Teras Warta <i>(Lead)</i></p>
-                        <p class="material-desc">Paragraf munggaran nu jadi inti warta. Lamun urang maca Lead-na hungkul, urang geus nyaho ampir sakabéh eusi warta.</p>
-                    </div>
-                    <div class="material-card cursor-hover">
-                        <i class="fa-solid fa-align-left"></i>
-                        <p class="material-label">Awak Warta <i>(Body)</i></p>
-                        <p class="material-desc">Dadaran anu leuwih jéntré ngeunaan kajadian nu diwartakeun, kalebet latar tukang jeung kontéksna.</p>
+            <div class="piramida-wrapper">
+                <div class="pyr-section" id="pyr-1">
+                    <svg class="pyr-svg" viewBox="0 0 480 128" preserveAspectRatio="none">
+                        <polygon class="pyr-fill" points="0,0 480,0 400,128 80,128"/>
+                        <polygon class="pyr-outline" points="0,0 480,0 400,128 80,128"/>
+                    </svg>
+                    <div class="pyr-header1">Judul (Headline)</div>
+                    <div class="pyr-label pyr-label-right">
+                        <div class="pyr-dot"></div>
+                        <div class="pyr-line"></div>
+                        <div class="pyr-text">
+                            <p class="pyr-desc">Kalimah singget nu ngagambarkeun eusi warta.</p>
+                        </div>
                     </div>
                 </div>
+
+                <div class="pyr-section" id="pyr-2">
+                    <svg class="pyr-svg" viewBox="0 0 480 128" preserveAspectRatio="none">
+                        <polygon class="pyr-fill" points="80,0 400,0 320,128 160,128"/>
+                        <polygon class="pyr-outline" points="80,0 400,0 320,128 160,128"/>
+                    </svg>
+                    <div class="pyr-header2">Teras Warta (Lead)</div>
+                    <div class="pyr-label pyr-label-left">
+                        <div class="pyr-text pyr-text-left">
+                            <p class="pyr-desc">Paragraf munggaran nu jadi inti warta. Lamun urang maca Lead-na hungkul, urang geus nyaho ampir sakabéh eusi warta.</p>
+                        </div>
+                        <div class="pyr-line"></div>
+                        <div class="pyr-dot"></div>
+                    </div>
+                </div>
+
+                <div class="pyr-section" id="pyr-3">
+                    <svg class="pyr-svg" viewBox="0 0 480 128" preserveAspectRatio="none">
+                        <polygon class="pyr-fill" points="160,0 320,0 240,128"/>
+                        <polygon class="pyr-outline" points="160,0 320,0 240,128"/>
+                    </svg>
+                    <div class="pyr-header3">Awak Warta (Body)</div>
+                    <div class="pyr-label pyr-label-right" id="pyr-label-right-2">
+                        <div class="pyr-dot"></div>
+                        <div class="pyr-line"></div>
+                        <div class="pyr-text">
+                            <p class="pyr-desc">Dadaran anu leuwih jéntré ngeunaan kajadian nu diwartakeun.</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="pyr-hint"><i>Hover</i> tiap bagian piramida pikeun tingali katerangan</p>
             </div>
 
             <div class="ragam-warta-section">
